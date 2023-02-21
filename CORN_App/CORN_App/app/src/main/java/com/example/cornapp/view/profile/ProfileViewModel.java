@@ -13,7 +13,6 @@ public class ProfileViewModel extends ViewModel {
     public void updateUser(Editable text, Editable text1, Editable text2, Editable text3) {
 
     }
-
     public LiveData<UserBo> getUser(){
         return user;
     }
