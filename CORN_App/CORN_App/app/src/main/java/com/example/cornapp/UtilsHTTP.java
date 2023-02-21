@@ -62,6 +62,7 @@ public class UtilsHTTP {
                             in.close();
 
                             //return response.toString();
+                            System.out.println(response);
                             callBack.accept(response.toString());
                         } else {
                             System.out.println(type + " request did not work.");

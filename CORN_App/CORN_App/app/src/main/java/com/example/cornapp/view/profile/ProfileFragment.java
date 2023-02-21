@@ -33,28 +33,30 @@ public class ProfileFragment extends Fragment {
         return binding.getRoot();
     }
 
-
     public void setupListeners(){
         binding.fab.setOnClickListener(view -> {
-
+/*
             viewModel.updateUser(
                     binding.profileUserNameValue.getText(),
                     binding.profileUserSurnameValue.getText(),
                     binding.profileContactTelfValue.getText(),
                     binding.profileEmailEditValue.getText()
 
-            );
+            );*/
             JSONObject obj = null;
             try {
                 obj = new JSONObject("{}");
-                obj.put("type", "profiles");
+                obj.put("type", "sync");
+                obj.put("phone", binding.profileContactTelfValue.getText().toString());
+                obj.put("email", binding.profileEmailEditValue.getText().toString());
+                obj.put("name", binding.profileUserNameValue.getText().toString());
+                obj.put("surname",binding.profileUserSurnameValue.getText().toString());
 
                 UtilsHTTP.sendPOST("http" + "://" + "10.0.2.2:" + 3000 + "/dades", obj.toString(), (response) -> {
                     JSONObject objResponse = null;
-
                     try {
-
                         objResponse = new JSONObject(response);
+                        System.out.println(response);
                         if (objResponse.getString("status").equals("OK")) {
                             JSONArray JSONlist = objResponse.getJSONArray("result");
                             JSONObject user = null;
