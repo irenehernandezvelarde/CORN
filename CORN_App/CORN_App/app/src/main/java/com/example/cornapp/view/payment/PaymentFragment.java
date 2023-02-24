@@ -1,15 +1,17 @@
 package com.example.cornapp.view.payment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
+import java.util.UUID;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.cornapp.R;
 import com.example.cornapp.UtilsHTTP;
 import com.example.cornapp.databinding.FragmentPaymentBinding;
 import com.example.cornapp.view.profile.ProfileFragment;
@@ -64,6 +66,8 @@ public class PaymentFragment extends Fragment {
                                 // Fill template with console information
                                 System.out.println(user);
                             }
+                            // Llama al método generateQRCode() para mostrar el código QR generado
+                            generateQRCode(token);
                         }
 
                     } catch (JSONException e) {
@@ -74,5 +78,27 @@ public class PaymentFragment extends Fragment {
                 e.printStackTrace();
             }
         });
+    }
+    public void generateQRCode(String token) {
+        try {
+            // Generar el código QR a partir del token usando ZXing
+            QRCodeWriter writer = new QRCodeWriter();
+            BitMatrix bitMatrix = writer.encode(token, BarcodeFormat.QR_CODE, 512, 512);
+
+            // Convertir el BitMatrix en un Bitmap para mostrar en el ImageView
+            Bitmap qrBitmap = Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888);
+            for (int x = 0; x < 512; x++) {
+                for (int y = 0; y < 512; y++) {
+                    qrBitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                }
+            }
+
+            // Mostrar el Bitmap en el ImageView
+            ImageView qrImageView = binding.imageView;
+            qrImageView.setImageBitmap(qrBitmap);
+
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
     }
 }
