@@ -23,13 +23,11 @@ import org.json.JSONObject;
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
-    private ProfileViewModel viewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         setupListeners();
-        viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+
         return binding.getRoot();
     }
 
