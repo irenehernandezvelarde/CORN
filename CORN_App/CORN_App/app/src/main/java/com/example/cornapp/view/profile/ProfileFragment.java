@@ -33,14 +33,6 @@ public class ProfileFragment extends Fragment {
 
     public void setupListeners(){
         binding.fab.setOnClickListener(view -> {
-/*
-            viewModel.updateUser(
-                    binding.profileUserNameValue.getText(),
-                    binding.profileUserSurnameValue.getText(),
-                    binding.profileContactTelfValue.getText(),
-                    binding.profileEmailEditValue.getText()
-
-            );*/
             JSONObject obj = null;
             try {
                 obj = new JSONObject("{}");
