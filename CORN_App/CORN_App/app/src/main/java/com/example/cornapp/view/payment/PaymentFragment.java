@@ -18,8 +18,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class PaymentFragment extends Fragment {
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+
+public class PaymentFragment extends Fragment {
+    public String token;
     private FragmentPaymentBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +60,7 @@ public class PaymentFragment extends Fragment {
                             for (int i = 0; i < JSONlist.length(); i++) {
                                 // Get console information
                                 user = JSONlist.getJSONObject(i);
+                                token = user.getString(token);
                                 // Fill template with console information
                                 System.out.println(user);
                             }
