@@ -30,7 +30,7 @@ public class PaymentFragment extends Fragment {
     }
     public void generateQR(){
         binding.button.setOnClickListener(view -> {
-            System.out.println(ProfileFragment.currentUser);
+            System.out.println("Current user " +ProfileFragment.currentUser);
             JSONObject obj = null;
             try {
                 obj = new JSONObject("{}");

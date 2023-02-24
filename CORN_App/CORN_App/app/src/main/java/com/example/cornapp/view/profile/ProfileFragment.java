@@ -62,6 +62,7 @@ public class ProfileFragment extends Fragment {
                                 // Get console information
                                 user = JSONlist.getJSONObject(i);
                                 // Fill template with console information
+                                currentUser=user.getString("phone");
                                 System.out.println(user);
                                 currentUser=user.getString("phone");
                             }
