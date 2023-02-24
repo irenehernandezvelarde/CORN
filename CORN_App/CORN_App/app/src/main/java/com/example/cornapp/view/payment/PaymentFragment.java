@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cornapp.UtilsHTTP;
 import com.example.cornapp.databinding.FragmentPaymentBinding;
+import com.example.cornapp.view.profile.ProfileFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,17 +24,19 @@ public class PaymentFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentPaymentBinding.inflate(inflater, container, false);
+        generateQR();
         return binding.getRoot();
-
 
     }
     public void generateQR(){
         binding.button.setOnClickListener(view -> {
-
+            System.out.println(ProfileFragment.currentUser);
             JSONObject obj = null;
             try {
                 obj = new JSONObject("{}");
-                obj.put("type", "sync");
+                obj.put("type", "setup_payment");
+                obj.put("id_destiny", ProfileFragment.currentUser);
+                obj.put("quantity", Double.parseDouble(binding.textInputEditText.getText().toString()));
 
                 UtilsHTTP.sendPOST("http" + "://" + "10.0.2.2:" + 3000 + "/dades", obj.toString(), (response) -> {
                     JSONObject objResponse = null;

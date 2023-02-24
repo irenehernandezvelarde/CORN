@@ -23,13 +23,11 @@ import org.json.JSONObject;
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
-    private ProfileViewModel viewModel;
-
+    public static String currentUser;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         setupListeners();
-        viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         return binding.getRoot();
     }
 
@@ -65,6 +63,7 @@ public class ProfileFragment extends Fragment {
                                 user = JSONlist.getJSONObject(i);
                                 // Fill template with console information
                                 System.out.println(user);
+                                currentUser=user.getString("phone");
                             }
                         }
 
