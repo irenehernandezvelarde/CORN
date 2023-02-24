@@ -25,22 +25,12 @@ public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
-
         setupListeners();
-
         return binding.getRoot();
     }
 
     public void setupListeners(){
         binding.fab.setOnClickListener(view -> {
-/*
-            viewModel.updateUser(
-                    binding.profileUserNameValue.getText(),
-                    binding.profileUserSurnameValue.getText(),
-                    binding.profileContactTelfValue.getText(),
-                    binding.profileEmailEditValue.getText()
-
-            );*/
             JSONObject obj = null;
             try {
                 obj = new JSONObject("{}");
