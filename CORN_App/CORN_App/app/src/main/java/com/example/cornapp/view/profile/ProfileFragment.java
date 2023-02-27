@@ -1,6 +1,8 @@
 package com.example.cornapp.view.profile;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         setupListeners();
+        logout();
         return binding.getRoot();
     }
 
@@ -51,12 +54,41 @@ public class ProfileFragment extends Fragment {
                             JSONArray JSONlist = objResponse.getJSONArray("result");
                             JSONObject user = null;
                             for (int i = 0; i < JSONlist.length(); i++) {
-                                // Get console information
                                 user = JSONlist.getJSONObject(i);
-                                // Fill template with console information
                                 currentUser=user.getString("phone");
                                 System.out.println(user);
-                                currentUser=user.getString("phone");
+
+                                if(objResponse.getString("message").equals("accepted")){
+
+                                    AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                                    alertDialog.setTitle("Hello " + user.getString("name"));
+                                    alertDialog.setMessage("You're successfully logged in.\nWe are glad you are here again, enjoy!");
+                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    alertDialog.show();
+
+                                } else if(objResponse.getString("message").equals("created")){
+
+                                    AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                                    alertDialog.setTitle("Hello " + user.getString("name") + "!");
+                                    alertDialog.setMessage("Your user has been created.\n" +
+                                            "Welcome to Pairma, your most secure payment app, remember we're just a QR away, enjoy!");
+                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    alertDialog.show();
+
+                                }else{
+
+                                }
+
                             }
                         }
 
@@ -68,6 +100,21 @@ public class ProfileFragment extends Fragment {
                 e.printStackTrace();
             }
 
+        });
+    }
+    public void logout(){
+        binding.signOut.setOnClickListener(view -> {
+            currentUser = null;
+            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+            alertDialog.setTitle("Good bye!");
+            alertDialog.setMessage("We hope you will be back soon.");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
         });
     }
 
