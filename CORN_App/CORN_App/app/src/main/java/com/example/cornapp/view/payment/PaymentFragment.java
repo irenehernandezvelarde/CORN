@@ -59,15 +59,15 @@ public class PaymentFragment extends Fragment {
                         if (objResponse.getString("status").equals("OK")) {
                             JSONArray JSONlist = objResponse.getJSONArray("result");
                             JSONObject user = null;
+                            System.out.println("ESTE ES EL IF");
                             for (int i = 0; i < JSONlist.length(); i++) {
-                                // Get console information
                                 user = JSONlist.getJSONObject(i);
-                                token = user.getString(token);
-                                // Fill template with console information
                                 System.out.println(user);
+                                token = user.getString("token");
                             }
-                            // Llama al método generateQRCode() para mostrar el código QR generado
                             generateQRCode(token);
+                        }else{
+                            System.out.println("ELSE");
                         }
 
                     } catch (JSONException e) {
@@ -84,17 +84,16 @@ public class PaymentFragment extends Fragment {
             // Generar el código QR a partir del token usando ZXing
             QRCodeWriter writer = new QRCodeWriter();
             BitMatrix bitMatrix = writer.encode(token, BarcodeFormat.QR_CODE, 512, 512);
-
             // Convertir el BitMatrix en un Bitmap para mostrar en el ImageView
             Bitmap qrBitmap = Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888);
+
             for (int x = 0; x < 512; x++) {
                 for (int y = 0; y < 512; y++) {
                     qrBitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
                 }
             }
-
             // Mostrar el Bitmap en el ImageView
-            ImageView qrImageView = binding.imageView;
+            ImageView qrImageView = binding.qrImage;
             qrImageView.setImageBitmap(qrBitmap);
 
         } catch (WriterException e) {
