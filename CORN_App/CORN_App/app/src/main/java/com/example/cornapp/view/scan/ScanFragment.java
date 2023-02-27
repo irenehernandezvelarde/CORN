@@ -1,6 +1,8 @@
 package com.example.cornapp.view.scan;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.Manifest;
@@ -72,8 +74,8 @@ public class ScanFragment extends Fragment {
                                 JSONObject obj = null;
                                 try {
                                     obj = new JSONObject("{}");
-                                    obj.put("type", "setup_payment");
-                                    obj.put("transationToken", result.getText());
+                                    obj.put("type", "start_payment");
+                                    obj.put("transactionToken", result.getText());
 
 
                                     UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/dades", obj.toString(), (response) -> {
@@ -83,6 +85,82 @@ public class ScanFragment extends Fragment {
                                             System.out.println(response);
                                             if (objResponse.getString("status").equals("OK")) {
                                                 amount=objResponse.getDouble("amount");
+                                                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                                                alertDialog.setTitle("Do you wanna pay");
+                                                alertDialog.setMessage(amount+"€");
+                                                alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "Cancel",
+                                                        new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                JSONObject obj = null;
+                                                                try {
+                                                                    obj = new JSONObject("{}");
+                                                                    obj.put("type", "finish_payment");
+                                                                    obj.put("origin_id", ProfileFragment.currentUser);
+                                                                    obj.put("transactionToken", result.getText());
+                                                                    obj.put("accepted","false");
+                                                                    obj.put("quantity",amount);
+
+                                                                    UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/dades", obj.toString(), (response) -> {
+                                                                        JSONObject objResponse = null;
+                                                                        try {
+                                                                            objResponse = new JSONObject(response);
+                                                                            System.out.println(response);
+                                                                            if (objResponse.getString("status").equals("OK")) {
+                                                                                JSONArray JSONlist = objResponse.getJSONArray("result");
+                                                                                JSONObject user = null;
+                                                                                for (int i = 0; i < JSONlist.length(); i++) {
+                                                                                    user = JSONlist.getJSONObject(i);
+                                                                                    System.out.println(user);
+
+                                                                                }
+                                                                            }
+
+                                                                        } catch (JSONException e) {
+                                                                            e.printStackTrace();
+                                                                        }
+                                                                    });
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+                                                        });
+                                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                                        new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                JSONObject obj = null;
+                                                                try {
+                                                                    obj = new JSONObject("{}");
+                                                                    obj.put("type", "finish_payment");
+                                                                    obj.put("origin_id", ProfileFragment.currentUser);
+                                                                    obj.put("transactionToken", result.getText());
+                                                                    obj.put("accepted","true");
+                                                                    obj.put("quantity",amount);
+
+                                                                    UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/dades", obj.toString(), (response) -> {
+                                                                        JSONObject objResponse = null;
+                                                                        try {
+                                                                            objResponse = new JSONObject(response);
+                                                                            System.out.println(response);
+                                                                            if (objResponse.getString("status").equals("OK")) {
+                                                                                JSONArray JSONlist = objResponse.getJSONArray("result");
+                                                                                JSONObject user = null;
+                                                                                for (int i = 0; i < JSONlist.length(); i++) {
+                                                                                    user = JSONlist.getJSONObject(i);
+                                                                                    System.out.println(user);
+
+                                                                                }
+                                                                            }
+
+                                                                        } catch (JSONException e) {
+                                                                            e.printStackTrace();
+                                                                        }
+                                                                    });
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+                                                        });
+                                                alertDialog.show();
                                                 System.out.println(amount);
                                             }
 
