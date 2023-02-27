@@ -88,7 +88,7 @@ public class ScanFragment extends Fragment {
                                                 AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                                                 alertDialog.setTitle("Do you wanna pay");
                                                 alertDialog.setMessage(amount+"€");
-                                                alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "Cancel",
+                                                alertDialog.setButton(DialogInterface.BUTTON2, "Cancel",
                                                         new DialogInterface.OnClickListener() {
                                                             public void onClick(DialogInterface dialog, int which) {
                                                                 JSONObject obj = null;
@@ -124,7 +124,7 @@ public class ScanFragment extends Fragment {
                                                                 }
                                                             }
                                                         });
-                                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                                alertDialog.setButton(AlertDialog.BUTTON1, "OK",
                                                         new DialogInterface.OnClickListener() {
                                                             public void onClick(DialogInterface dialog, int which) {
                                                                 JSONObject obj = null;
