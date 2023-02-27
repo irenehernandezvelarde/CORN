@@ -37,6 +37,7 @@ public class ScanFragment extends Fragment {
     private static final String[] CAMERA_PERMISSION = new String[]{Manifest.permission.CAMERA};
     private static final int CAMERA_REQUEST_CODE = 10;
     private FragmentScanBinding binding;
+    private double amount;
 
 
     private boolean hasCameraPermission() {
@@ -73,7 +74,6 @@ public class ScanFragment extends Fragment {
                                     obj = new JSONObject("{}");
                                     obj.put("type", "setup_payment");
                                     obj.put("transationToken", result.getText());
-                                    obj.put("user_id", result.getText());
 
 
                                     UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/dades", obj.toString(), (response) -> {
@@ -82,13 +82,8 @@ public class ScanFragment extends Fragment {
                                             objResponse = new JSONObject(response);
                                             System.out.println(response);
                                             if (objResponse.getString("status").equals("OK")) {
-                                                JSONArray JSONlist = objResponse.getJSONArray("result");
-                                                JSONObject user = null;
-                                                for (int i = 0; i < JSONlist.length(); i++) {
-                                                    user = JSONlist.getJSONObject(i);
-                                                    System.out.println(user);
-                                                }
-                                            }else{
+                                                amount=objResponse.getDouble("amount");
+                                                System.out.println(amount);
                                             }
 
                                         } catch (JSONException e) {
