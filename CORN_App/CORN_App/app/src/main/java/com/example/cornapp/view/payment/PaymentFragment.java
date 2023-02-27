@@ -51,7 +51,7 @@ public class PaymentFragment extends Fragment {
                 obj.put("id_destiny", ProfileFragment.currentUser);
                 obj.put("quantity", Double.parseDouble(binding.textInputEditText.getText().toString()));
 
-                UtilsHTTP.sendPOST("http" + "://" + "10.0.2.2:" + 3000 + "/dades", obj.toString(), (response) -> {
+                UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/dades", obj.toString(), (response) -> {
                     JSONObject objResponse = null;
                     try {
                         objResponse = new JSONObject(response);

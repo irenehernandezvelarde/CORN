@@ -44,7 +44,7 @@ public class ProfileFragment extends Fragment {
                 obj.put("name", binding.profileUserNameValue.getText().toString());
                 obj.put("surname",binding.profileUserSurnameValue.getText().toString());
 
-                UtilsHTTP.sendPOST("http" + "://" + "10.0.2.2:" + 3000 + "/dades", obj.toString(), (response) -> {
+                UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/dades", obj.toString(), (response) -> {
                     JSONObject objResponse = null;
                     try {
                         objResponse = new JSONObject(response);
@@ -56,7 +56,7 @@ public class ProfileFragment extends Fragment {
                                 user = JSONlist.getJSONObject(i);
                                 currentUser=user.getString("phone");
                                 System.out.println(user);
-
+                                System.out.println(objResponse.getString("message"));
                                 if(objResponse.getString("message").equals("accepted")){
 
                                     AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
@@ -84,10 +84,7 @@ public class ProfileFragment extends Fragment {
                                             });
                                     alertDialog.show();
 
-                                }else{
-
                                 }
-
                             }
                         }
 
