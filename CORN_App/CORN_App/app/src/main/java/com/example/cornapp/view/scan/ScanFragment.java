@@ -22,9 +22,15 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.example.cornapp.R;
+import com.example.cornapp.UtilsHTTP;
 import com.example.cornapp.databinding.FragmentProfileBinding;
 import com.example.cornapp.databinding.FragmentScanBinding;
+import com.example.cornapp.view.profile.ProfileFragment;
 import com.google.zxing.Result;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ScanFragment extends Fragment {
     private CodeScanner mCodeScanner;
@@ -61,9 +67,43 @@ public class ScanFragment extends Fragment {
                     getActivity().runOnUiThread(
                             () -> {
                                 Toast.makeText(getActivity(), result.getText(), Toast.LENGTH_SHORT).show();
+                                System.out.println("Current user " + ProfileFragment.currentUser);
+                                JSONObject obj = null;
+                                try {
+                                    obj = new JSONObject("{}");
+                                    obj.put("type", "setup_payment");
+                                    obj.put("transationToken", result.getText());
+                                    obj.put("user_id", result.getText());
+
+
+                                    UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/dades", obj.toString(), (response) -> {
+                                        JSONObject objResponse = null;
+                                        try {
+                                            objResponse = new JSONObject(response);
+                                            System.out.println(response);
+                                            if (objResponse.getString("status").equals("OK")) {
+                                                JSONArray JSONlist = objResponse.getJSONArray("result");
+                                                JSONObject user = null;
+                                                for (int i = 0; i < JSONlist.length(); i++) {
+                                                    user = JSONlist.getJSONObject(i);
+                                                    System.out.println(user);
+                                                }
+                                            }else{
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
+                            
                     );
+
                 }
+
             });
             binding.scannerView.setOnClickListener(view -> mCodeScanner.startPreview());
         }

@@ -59,7 +59,6 @@ public class PaymentFragment extends Fragment {
                         if (objResponse.getString("status").equals("OK")) {
                             JSONArray JSONlist = objResponse.getJSONArray("result");
                             JSONObject user = null;
-                            System.out.println("ESTE ES EL IF");
                             for (int i = 0; i < JSONlist.length(); i++) {
                                 user = JSONlist.getJSONObject(i);
                                 System.out.println(user);
@@ -67,7 +66,6 @@ public class PaymentFragment extends Fragment {
                             }
                             generateQRCode(token);
                         }else{
-                            System.out.println("ELSE");
                         }
 
                     } catch (JSONException e) {
