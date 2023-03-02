@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Login extends AppCompatActivity {
 
     @Override
@@ -24,8 +28,37 @@ public class Login extends AppCompatActivity {
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
+                JSONObject obj = null;
+                try {
+                    obj = new JSONObject("{}");
+                    obj.put("type", "login");
+                    obj.put("email", gmail.getText().toString());
+                    obj.put("password", contra.getText().toString());
 
-                if (gmail.getText().toString().equals("hola")) {
+                    UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/dades", obj.toString(), (response) -> {
+                        JSONObject objResponse = null;
+                        try {
+                            objResponse = new JSONObject(response);
+                            System.out.println(response);
+                            if (objResponse.getString("status").equals("OK")) {
+                                JSONArray JSONlist = objResponse.getJSONArray("result");
+                                JSONObject user = null;
+                                for (int i = 0; i < JSONlist.length(); i++) {
+                                    user = JSONlist.getJSONObject(i);
+                                    if(objResponse.getString("message").equals("accepted")) {
+                                        startActivity(new Intent(Login.this, MainActivity.class));
+                                    }
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                /*if (gmail.getText().toString().equals("hola")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                     builder.setTitle("Hola!");
                     builder.setMessage("Perfecto");
@@ -38,7 +71,7 @@ public class Login extends AppCompatActivity {
 
                 } else {
                     startActivity(new Intent(Login.this,SignUp.class));
-                }
+                }*/
 
             }
         });
