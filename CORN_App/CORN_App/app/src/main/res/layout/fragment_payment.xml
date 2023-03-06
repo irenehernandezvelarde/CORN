@@ -49,16 +49,18 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.179"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="310dp"
-        android:layout_height="91dp"
+        android:layout_width="311dp"
+        android:layout_height="68dp"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:text="Enter the amount of money you wish to send and press the generate QR button, then display this QR to make the payment."
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/textInputEditText"

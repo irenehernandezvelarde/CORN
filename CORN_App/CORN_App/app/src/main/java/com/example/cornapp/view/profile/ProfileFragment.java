@@ -3,6 +3,8 @@ package com.example.cornapp.view.profile;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.cornapp.Login;
+import com.example.cornapp.MainActivity;
 import com.example.cornapp.UtilsHTTP;
 import com.example.cornapp.databinding.FragmentProfileBinding;
 
@@ -25,11 +29,18 @@ import org.json.JSONObject;
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
-    public static String currentUser;
+    public static String currentUser=null;
+    public static String emailUser=null;
+    public static String nameUser=null;
+    public static String lastNameUser=null;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         setupListeners();
         logout();
+        binding.profileContactTelfValue.setText(currentUser);
+        binding.profileEmailEditValue.setText(emailUser);
+        binding.profileUserNameValue.setText(nameUser);
+        binding.profileUserSurnameValue.setText(lastNameUser);
         return binding.getRoot();
     }
 
@@ -100,10 +111,41 @@ public class ProfileFragment extends Fragment {
     }
     public void logout(){
         binding.signOut.setOnClickListener(view -> {
-            currentUser = null;
+            System.out.println(currentUser);
+            JSONObject obj = null;
+            try {
+                obj = new JSONObject("{}");
+                obj.put("type", "change_token");
+                obj.put("phone", currentUser);
+
+                UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/dades", obj.toString(), (response) -> {
+                    JSONObject objResponse = null;
+                    try {
+                        objResponse = new JSONObject(response);
+                        System.out.println(response);
+                        if (objResponse.getString("status").equals("OK")) {
+                            JSONArray JSONlist = objResponse.getJSONArray("result");
+                            System.out.println(JSONlist);
+                            JSONObject user = null;
+                            for (int i = 0; i < JSONlist.length(); i++) {
+                                user = JSONlist.getJSONObject(i);
+                                System.out.println(user);
+                                currentUser = null;
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                });
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
             AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
             alertDialog.setTitle("Good bye!");
             alertDialog.setMessage("We hope you will be back soon.");
+
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -111,7 +153,7 @@ public class ProfileFragment extends Fragment {
                         }
                     });
             alertDialog.show();
+
         });
     }
-
-}
+        }
