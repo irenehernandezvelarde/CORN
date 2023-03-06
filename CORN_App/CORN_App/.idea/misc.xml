@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Neei/Desktop/CORN_App-dev/CORN_App-dev/app/src/main/res/layout/activity_main.xml" value="0.27200902934537247" />
+        <entry key="..\:/Users/Neei/Desktop/CORN_App-dev/CORN_App-dev/app/src/main/res/layout/fragment_historial.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Neei/Desktop/CORN_App-dev/CORN_App-dev/app/src/main/res/layout/fragment_home.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Neei/Desktop/CORN_App-dev/CORN_App-dev/app/src/main/res/layout/fragment_payment.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Neei/Desktop/CORN_App-dev/CORN_App-dev/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/Users/Neei/Desktop/CORN_App-dev/CORN_App-dev/app/src/main/res/layout/fragment_scan.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Neei/Desktop/CORN_App-dev/CORN_App-dev/app/src/main/res/menu/bottom_nav_menu.xml" value="0.29270833333333335" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/debug/res/drawable/btn_bg.xml" value="0.137" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/debug/res/drawable/ic_email.xml" value="0.137" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/debug/res/drawable/ic_facebook.xml" value="0.137" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/debug/res/drawable/ic_google.xml" value="0.137" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/debug/res/drawable/ic_person.xml" value="0.137" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/debug/res/drawable/ic_security.xml" value="0.137" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/debug/res/drawable/inpunt_bg.xml" value="0.137" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/main/res/layout/activity_login.xml" value="0.3625" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/main/res/layout/activity_sign_up.xml" value="0.3484375" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/main/res/layout/fragment_payment.xml" value="0.33" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/main/res/layout/fragment_scan.xml" value="0.33" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/CORN_App/app/src/main/res/menu/bottom_nav_menu.xml" value="0.33" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/app/src/main/res/layout/fragment_profile.xml" value="0.3625" />
+        <entry key="..\:/Users/Neei/Desktop/Repositorios/CORN_APP/CORN_App/app/src/main/res/layout/fragment_scan.xml" value="0.3625" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
