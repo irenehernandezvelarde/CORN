@@ -3,13 +3,17 @@ package com.example.cornapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.cornapp.view.profile.ProfileFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,13 +33,14 @@ public class SignUp extends AppCompatActivity {
         final EditText repitContra = findViewById(R.id.confirmaContrasenyaRegistre);
         final Button registerButton = findViewById(R.id.btnRegistre);
         TextView btn = findViewById(R.id.alreadyHaveAccount);
-
+        SharedPreferences sharedPref = SignUp.this.getPreferences(Context.MODE_PRIVATE);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
 
                 JSONObject obj = null;
                 try {
                     obj = new JSONObject("{}");
+                    System.out.println("Mail: "+gmail.getText().toString());
                     obj.put("type", "signup");
                     obj.put("phone", telefon.getText().toString());
                     obj.put("email", gmail.getText().toString());
@@ -45,7 +50,7 @@ public class SignUp extends AppCompatActivity {
                         obj.put("password", contra.getText().toString());
                     }
 
-                    UtilsHTTP.sendPOST("http" + "://" + "localhost:" + 3000 + "/dades", obj.toString(), (response) -> {
+                    UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/dades", obj.toString(), (response) -> {
                         JSONObject objResponse = null;
                         try {
                             objResponse = new JSONObject(response);
@@ -57,9 +62,27 @@ public class SignUp extends AppCompatActivity {
                                     user = JSONlist.getJSONObject(i);
                                     userToken = user.getString("token");
                                     if(objResponse.getString("message").equals("created")) {
+                                        ProfileFragment.currentUser = String.valueOf(user.get("phone"));
+                                        ProfileFragment.emailUser=user.get("email").toString();
+                                        ProfileFragment.nameUser=user.get("name").toString();
+                                        ProfileFragment.lastNameUser=user.get("surname").toString();
+                                        System.out.println("Token: "+user.getString("token"));
+                                        SharedPreferences.Editor editor = sharedPref.edit();
+                                        editor.putString("session_token",user.getString("token"));
+                                        editor.apply();
                                         startActivity(new Intent(SignUp.this, MainActivity.class));
                                     }
                                 }
+                            }else if(objResponse.getString("status").equals("ERROR")){
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
+                                builder.setTitle("ERROR");
+                                builder.setMessage("Omple els camps correctament!");
+                                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                                    }
+                                });
+                                builder.show();
                             }
 
                         } catch (JSONException e) {
