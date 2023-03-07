@@ -70,6 +70,8 @@ public class SignUp extends AppCompatActivity {
                                         SharedPreferences.Editor editor = sharedPref.edit();
                                         editor.putString("session_token",user.getString("token"));
                                         editor.apply();
+                                        Login.sessionToken=String.valueOf(user.get("token"));
+                                        System.out.println("Session token: "+Login.sessionToken);
                                         startActivity(new Intent(SignUp.this, MainActivity.class));
                                     }
                                 }

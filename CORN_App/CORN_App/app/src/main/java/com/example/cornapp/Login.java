@@ -20,7 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
-
+    public static String sessionToken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +58,8 @@ public class Login extends AppCompatActivity {
                                     ProfileFragment.emailUser=user.get("email").toString();
                                     ProfileFragment.nameUser=user.get("name").toString();
                                     ProfileFragment.lastNameUser=user.get("surname").toString();
+                                    sessionToken=String.valueOf(user.get("token"));
+                                    System.out.println("Session token: "+sessionToken);
                                     startActivity(intent);
                                 }
                                 }
@@ -98,6 +100,7 @@ public class Login extends AppCompatActivity {
                                         System.out.println("Token: "+user.getString("token"));
                                         SharedPreferences.Editor editor = sharedPref.edit();
                                         editor.putString("session_token",user.getString("token"));
+                                        sessionToken=String.valueOf(user.get("token"));
                                         editor.apply();
                                     }
                                 }

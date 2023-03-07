@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.cornapp.Login;
 import com.example.cornapp.R;
 import com.example.cornapp.UtilsHTTP;
 import com.example.cornapp.databinding.FragmentPaymentBinding;
@@ -48,7 +49,7 @@ public class PaymentFragment extends Fragment {
             try {
                 obj = new JSONObject("{}");
                 obj.put("type", "setup_payment");
-                obj.put("id_destiny", ProfileFragment.currentUser);
+                obj.put("token", Login.sessionToken);
                 obj.put("quantity", Double.parseDouble(binding.textInputEditText.getText().toString()));
 
                 UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/dades", obj.toString(), (response) -> {

@@ -77,6 +77,7 @@ public class ProfileFragment extends Fragment {
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     dialog.dismiss();
+
                                                 }
                                             });
                                     alertDialog.show();
@@ -91,6 +92,7 @@ public class ProfileFragment extends Fragment {
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     dialog.dismiss();
+
                                                 }
                                             });
                                     alertDialog.show();
@@ -116,7 +118,7 @@ public class ProfileFragment extends Fragment {
             try {
                 obj = new JSONObject("{}");
                 obj.put("type", "change_token");
-                obj.put("phone", currentUser);
+                obj.put("token", Login.sessionToken);
 
                 UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/dades", obj.toString(), (response) -> {
                     JSONObject objResponse = null;
@@ -149,7 +151,9 @@ public class ProfileFragment extends Fragment {
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
+
                             dialog.dismiss();
+                            startActivity(new Intent(getActivity(),Login.class));
                         }
                     });
             alertDialog.show();
