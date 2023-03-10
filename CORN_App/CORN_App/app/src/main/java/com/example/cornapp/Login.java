@@ -58,6 +58,7 @@ public class Login extends AppCompatActivity {
                                     ProfileFragment.emailUser=user.get("email").toString();
                                     ProfileFragment.nameUser=user.get("name").toString();
                                     ProfileFragment.lastNameUser=user.get("surname").toString();
+                                    ProfileFragment.estat=user.get("state").toString();
                                     sessionToken=String.valueOf(user.get("token"));
                                     System.out.println("Session token: "+sessionToken);
                                     startActivity(intent);

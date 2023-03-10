@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.cornapp.FileUtil;
 import com.example.cornapp.Login;
 import com.example.cornapp.MainActivity;
 import com.example.cornapp.UtilsHTTP;
@@ -35,6 +36,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -49,6 +51,7 @@ public class ProfileFragment extends Fragment {
     public static String lastNameUser=null;
     public static String estat="";
     ActivityResultLauncher<Intent> someActivityResultLauncher;
+    ActivityResultLauncher<Intent> someActivityResultLauncher2;
     public static int RC_PHOTO_PICKER = 0;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -57,6 +60,7 @@ public class ProfileFragment extends Fragment {
         setupListeners();
         logout();
         openSomeActivityForResult();
+        openSomeActivityForResult2();
         someActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -66,11 +70,21 @@ public class ProfileFragment extends Fragment {
                             // There are no request codes
                             Intent data = result.getData();
                             Uri uri = data.getData();
-                            System.out.println("URI: "+uri);
+                            byte[] fileContent1 = data.getByteArrayExtra(Intent.EXTRA_LOCAL_ONLY);
+                            File file1 = new File(String.valueOf(uri));
+                            File file = null;
+                            try {
+                                file = FileUtil.from(getContext(),uri);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            //System.out.println("Bytes: "+fileContent.toString());
                             byte[] fileContent = new byte[0];
                                 try {
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                        fileContent = Files.readAllBytes(Paths.get(uri.getPath()));
+                                        System.out.println(uri.getPath());
+                                        fileContent = Files.readAllBytes(file.toPath());
                                     }
                                 } catch (IOException e) {
                                     e.printStackTrace();
@@ -78,7 +92,7 @@ public class ProfileFragment extends Fragment {
                             String lletres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
                             // La cadena en donde iremos agregando un carácter aleatorio
                             String name = "";
-                            for (int x = 0; x < lletres.length(); x++) {
+                            for (int x = 0; x < 30; x++) {
                                 int indiceAleatorio = (int) (Math.random()*lletres.length()-1);
                                 char caracterAleatorio = lletres.charAt(indiceAleatorio);
                                 name += caracterAleatorio;
@@ -97,7 +111,75 @@ public class ProfileFragment extends Fragment {
                                 obj = new JSONObject("{}");
                                 obj.put("type", "send_id");
                                 obj.put("name", name);
-                                obj.put("base64", base64);
+                                obj.put("token",Login.sessionToken);
+                                obj.put("photo", base64);
+                                obj.put("foto","front");
+
+                                // Enviar l’objecte
+                                UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/dades",
+                                        obj.toString(), (response) -> {
+                                            System.out.println(response);
+                                        });
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+                });
+        someActivityResultLauncher2 = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            // There are no request codes
+                            Intent data = result.getData();
+                            Uri uri = data.getData();
+                            byte[] fileContent1 = data.getByteArrayExtra(Intent.EXTRA_LOCAL_ONLY);
+                            File file1 = new File(String.valueOf(uri));
+                            File file = null;
+                            try {
+                                file = FileUtil.from(getContext(),uri);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            //System.out.println("Bytes: "+fileContent.toString());
+                            byte[] fileContent = new byte[0];
+                            try {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    System.out.println(uri.getPath());
+                                    fileContent = Files.readAllBytes(file.toPath());
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            String lletres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+                            // La cadena en donde iremos agregando un carácter aleatorio
+                            String name = "";
+                            for (int x = 0; x < 30; x++) {
+                                int indiceAleatorio = (int) (Math.random()*lletres.length()-1);
+                                char caracterAleatorio = lletres.charAt(indiceAleatorio);
+                                name += caracterAleatorio;
+                            }
+
+
+                            // Transformar el byte[] en una cadena de text
+                            String base64 = null;
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                base64 = Base64.getEncoder().encodeToString(fileContent);
+                            }
+
+                            // Preparar l’objecte Json que s’envia al servidor
+                            JSONObject obj = null;
+                            try {
+                                obj = new JSONObject("{}");
+                                obj.put("type", "send_id");
+                                obj.put("name", name);
+                                obj.put("token",Login.sessionToken);
+                                obj.put("photo", base64);
+                                obj.put("foto","back");
 
                                 // Enviar l’objecte
                                 UtilsHTTP.sendPOST("https" + "://" + "corns-production.up.railway.app:" + 443 + "/dades",
@@ -123,14 +205,16 @@ public class ProfileFragment extends Fragment {
 
             Drawable res = getResources().getDrawable(imageResource);
             binding.imageView8.setImageDrawable(res);
+            binding.textView4.setText("Usuari Acceptat: L'usuari validat correctament");
         }
-        else if(estat.equalsIgnoreCase("NO_VERFICAT")) {
+        else if(estat.equalsIgnoreCase("NO_VERIFICAT")) {
             String uri = "@drawable/blue_circle";  // where myresource (without the extension) is the file
 
             int imageResource = getResources().getIdentifier(uri, null, getContext().getPackageName());
 
             Drawable res = getResources().getDrawable(imageResource);
             binding.imageView8.setImageDrawable(res);
+            binding.textView4.setText("Usuari no verificat: Usa els botons per enviar les fotos i que es pugui validar");
         }
         else if(estat.equalsIgnoreCase("PER_VERIFICAR")) {
             String uri = "@drawable/orange_circle";  // where myresource (without the extension) is the file
@@ -139,6 +223,7 @@ public class ProfileFragment extends Fragment {
 
             Drawable res = getResources().getDrawable(imageResource);
             binding.imageView8.setImageDrawable(res);
+            binding.textView4.setText("Usuari per verificar: Les fotos han sigut enviades i encara s'ha de verificar");
         }
         else if(estat.equalsIgnoreCase("REBUTJAT")) {
             String uri = "@drawable/red_circle";  // where myresource (without the extension) is the file
@@ -147,6 +232,7 @@ public class ProfileFragment extends Fragment {
 
             Drawable res = getResources().getDrawable(imageResource);
             binding.imageView8.setImageDrawable(res);
+            binding.textView4.setText("Usuari rebutjat: Les fotos no han sigut bones, aquest usuari ha sigut rebutjat");
         }
         //binding.imageView8.
         return binding.getRoot();
@@ -279,6 +365,19 @@ public class ProfileFragment extends Fragment {
                 //Launch activity to get result
                 //ImageView img = findViewById(R.id.img);
                 someActivityResultLauncher.launch(intent);
+        });
+    }
+    public void openSomeActivityForResult2() {
+        //Create Intent
+        binding.button3.setOnClickListener(view -> {
+
+            System.out.println("Image "+binding.imageView8.getResources());
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/jpg");
+            intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+            //Launch activity to get result
+            //ImageView img = findViewById(R.id.img);
+            someActivityResultLauncher2.launch(intent);
         });
     }
 }
