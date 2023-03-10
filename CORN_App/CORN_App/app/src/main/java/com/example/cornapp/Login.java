@@ -96,6 +96,7 @@ public class Login extends AppCompatActivity {
                                         ProfileFragment.emailUser=user.get("email").toString();
                                         ProfileFragment.nameUser=user.get("name").toString();
                                         ProfileFragment.lastNameUser=user.get("surname").toString();
+                                        ProfileFragment.estat=user.get("state").toString();
                                         startActivity(new Intent(Login.this, MainActivity.class));
                                         System.out.println("Token: "+user.getString("token"));
                                         SharedPreferences.Editor editor = sharedPref.edit();

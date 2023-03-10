@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,6 +73,7 @@
                         app:srcCompat="@drawable/user" />
 
                 </androidx.cardview.widget.CardView>
+
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/profile_phone_cardview"
@@ -271,14 +273,42 @@
 
                 <TextView
                     android:id="@+id/textView4"
-                    android:layout_width="341dp"
-                    android:layout_height="77dp"
-                    android:text="If you have an account, enter only the phone number and click on the person button. If you are new user, fill in all the information and click on the person button."
+                    android:layout_width="307dp"
+                    android:layout_height="40dp"
+                    android:text="Estat"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.913"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.329" />
+                    app:layout_constraintVertical_bias="0.314" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Send Id"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.894" />
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="45dp"
+                    android:layout_height="42dp"
+                    android:layout_margin="7sp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.095"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.312"
+                    app:srcCompat="@drawable/blue_circle"
+                    tools:ignore="MissingConstraints" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
