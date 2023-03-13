@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.example.cornapp.Login;
 import com.example.cornapp.R;
 import com.example.cornapp.UtilsHTTP;
 import com.example.cornapp.databinding.FragmentProfileBinding;
@@ -95,7 +96,7 @@ public class ScanFragment extends Fragment {
                                                                 try {
                                                                     obj = new JSONObject("{}");
                                                                     obj.put("type", "finish_payment");
-                                                                    obj.put("origin_id", ProfileFragment.currentUser);
+                                                                    obj.put("token", Login.sessionToken);
                                                                     obj.put("transactionToken", result.getText());
                                                                     obj.put("accepted","false");
                                                                     obj.put("quantity",amount);
@@ -131,7 +132,7 @@ public class ScanFragment extends Fragment {
                                                                 try {
                                                                     obj = new JSONObject("{}");
                                                                     obj.put("type", "finish_payment");
-                                                                    obj.put("origin_id", ProfileFragment.currentUser);
+                                                                    obj.put("token", Login.sessionToken);
                                                                     obj.put("transactionToken", result.getText());
                                                                     obj.put("accepted","true");
                                                                     obj.put("quantity",amount);

@@ -66,10 +66,13 @@ public class SignUp extends AppCompatActivity {
                                         ProfileFragment.emailUser=user.get("email").toString();
                                         ProfileFragment.nameUser=user.get("name").toString();
                                         ProfileFragment.lastNameUser=user.get("surname").toString();
+                                        ProfileFragment.estat=user.get("state").toString();
                                         System.out.println("Token: "+user.getString("token"));
                                         SharedPreferences.Editor editor = sharedPref.edit();
                                         editor.putString("session_token",user.getString("token"));
                                         editor.apply();
+                                        Login.sessionToken=String.valueOf(user.get("token"));
+                                        System.out.println("Session token: "+Login.sessionToken);
                                         startActivity(new Intent(SignUp.this, MainActivity.class));
                                     }
                                 }
