@@ -205,7 +205,7 @@ public class ProfileFragment extends Fragment {
 
             Drawable res = getResources().getDrawable(imageResource);
             binding.imageView8.setImageDrawable(res);
-            binding.textView4.setText("Usuari Acceptat: L'usuari validat correctament");
+            binding.textView4.setText("Usuari Acceptat: L'usuari s'ha validat correctament");
         }
         else if(estat.equalsIgnoreCase("NO_VERIFICAT")) {
             String uri = "@drawable/blue_circle";  // where myresource (without the extension) is the file
@@ -223,7 +223,7 @@ public class ProfileFragment extends Fragment {
 
             Drawable res = getResources().getDrawable(imageResource);
             binding.imageView8.setImageDrawable(res);
-            binding.textView4.setText("Usuari per verificar: Les fotos han sigut enviades i encara s'ha de verificar");
+            binding.textView4.setText("Usuari per verificar: Les fotos han sigut enviades i encara s'ha de verificar l'usuari");
         }
         else if(estat.equalsIgnoreCase("REBUTJAT")) {
             String uri = "@drawable/red_circle";  // where myresource (without the extension) is the file
