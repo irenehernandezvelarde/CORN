@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,6 +74,7 @@
 
                 </androidx.cardview.widget.CardView>
 
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/profile_phone_cardview"
                     android:layout_width="match_parent"
@@ -106,7 +108,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="15dp"
                             android:layout_marginTop="52dp"
-                            android:text="Contact"
+                            android:text="Contacte"
                             android:textSize="16dp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -220,7 +222,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="15dp"
                             android:layout_marginTop="16dp"
-                            android:text="Name n Lastname"
+                            android:text="Nom i Cognom"
                             android:textSize="16dp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toEndOf="@+id/profile_user_icon"
@@ -246,7 +248,7 @@
                             android:layout_width="105dp"
                             android:layout_height="48dp"
                             android:layout_marginVertical="20dp"
-                            android:hint="Name"
+                            android:hint="Nom"
                             android:textSize="14sp"
                             app:layout_constraintEnd_toStartOf="@+id/profile_user_surname_value"
                             app:layout_constraintHorizontal_bias="0.784"
@@ -258,7 +260,7 @@
                             android:layout_width="106dp"
                             android:layout_height="48dp"
                             android:layout_marginBottom="5dp"
-                            android:hint="Lastname"
+                            android:hint="Cognom"
                             android:textSize="14sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -271,14 +273,53 @@
 
                 <TextView
                     android:id="@+id/textView4"
-                    android:layout_width="341dp"
-                    android:layout_height="77dp"
-                    android:text="If you have an account, enter only the phone number and click on the person button. If you are new user, fill in all the information and click on the person button."
+                    android:layout_width="307dp"
+                    android:layout_height="40dp"
+                    android:text="Estat"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.913"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.314" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Foto davant"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.329" />
+                    app:layout_constraintVertical_bias="0.842" />
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Foto darrere"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.932" />
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="45dp"
+                    android:layout_height="42dp"
+                    android:layout_margin="7sp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.095"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.312"
+                    app:srcCompat="@drawable/blue_circle"
+                    tools:ignore="MissingConstraints" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
